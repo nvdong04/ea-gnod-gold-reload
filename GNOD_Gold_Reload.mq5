@@ -3,8 +3,11 @@
 //|     GNOD Gold Reload - Impulse & Pullback continuation EA        |
 //|                     XAUUSD / GOLD • H1 Timeframe                 |
 //+------------------------------------------------------------------+
-#property copyright "GNOD Gold Reload"
-#property version   "1.93"
+#define EA_NAME    "GNOD Gold Reload"
+#define EA_VERSION "1.0.0"                     // 3 phần X.Y.Z, khớp tag vX.Y.Z
+
+#property copyright EA_NAME
+#property version   EA_VERSION
 #property strict
 
 #include <Trade\Trade.mqh>
@@ -26,7 +29,7 @@ enum ENUM_SRV_DST
 input group "1. Position Sizing"
 input double       Lot                      = 0.0;              // Fixed lot (0 = auto by balance)
 input double       percent                  = 0.01;             // Auto lot: lot per balance step
-input double       balance                  = 250.0;            // Auto lot: balance step
+input double       balance                  = 2000.0;           // Auto lot: balance step
 input int          MaxCountOrders           = 2;                // Max simultaneous positions
 
 input group "2. Stop Loss / Take Profit"
@@ -80,7 +83,7 @@ input group "9. Execution & Display"
 input int          MaxSpred                 = 150;              // Max spread (points, 2-digit gold)
 input int          Slippage                 = 50;               // Max slippage (points)
 input long         Magic                    = 222;              // Magic number
-input string       Commen                   = "GNOD Gold Reload"; // Order comment
+input string       Commen                   = EA_NAME;          // Order comment
 input bool         ShowInfoPanel            = true;             // Show info panel on chart
 
 //--- Global variables
@@ -597,7 +600,7 @@ void UpdateInfoPanel()
    int    offHours  = GetServerUTCOffsetSec(TimeCurrent()) / 3600;
 
    string info = StringFormat(
-      "=== GNOD GOLD RELOAD v1.93 ===\n"
+      "=== " + EA_NAME + " v" + EA_VERSION + " ===\n"
       "Symbol: %s | Magic: %d\n"
       "Calculated Next Lot: %.2f (Balance Step: %.0f)\n"
       "Open Deals: %d / %d\n"

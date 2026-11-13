@@ -65,6 +65,7 @@ fi
 # Chuyển đổi mã hóa log từ UTF-16LE sang UTF-8
 LOG_CONTENT=$(iconv -f UTF-16LE -t UTF-8 "$LOG_MAC_PATH" 2>/dev/null || cat "$LOG_MAC_PATH" | tr -d '\0')
 
+echo "$LOG_CONTENT" | grep -i "warning" | grep -v "Result:"
 # Kiểm tra kết quả
 if echo "$LOG_CONTENT" | grep -q "Result: 0 errors"; then
     echo "$LOG_CONTENT" | grep "Result:"
